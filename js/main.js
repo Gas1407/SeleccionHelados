@@ -42,12 +42,6 @@ function elegirSabores() {
 if (cantidad_gustos > 0) {
   alert("Podés elegir " + cantidad_gustos + " gustos.");
 
-const array1 = ["a", "b", "c"];
-
-for (const element of array1) {
-  console.log(element);
-}
-
 } else {}   
 
 }
