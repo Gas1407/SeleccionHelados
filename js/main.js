@@ -1,5 +1,20 @@
 
-const tamanos = ["cuarto","medio kilo", "kilo"];
+const tamanos = [
+    
+    {
+        nombre: "un cuarto",
+        precio: 500,  
+    },
+    {
+        nombre: "medio kilo",
+        precio: 900,  
+    },
+    {
+        nombre: "kilo",
+        precio: 1700,  
+    }
+];
+
 const gustos = ["frutilla", "chocolate", "dulce de leche", "tramontana", "granizado"];
 const pedido = [];
 let cantidad_gustos;
@@ -7,90 +22,43 @@ let precio;
 let elegir_tamanos;
 let sabor;
 
-elegirTamano();
 
+//
+//recorrer los arrays con un foreach
+//mostrar por pantalla los gustos y tamaños
+//poner input para elegir el tamaño y los gustos
+//segun el input darle la cantidad de gustos
+//crear array de pedido en base a lo que elija el usuario
 
-function elegirTamano() {
-    elegir_tamanos = prompt("¡Bienvenidos a SampaHeladerias! Seleccione el tamaño de helado:" + tamanos.join(", "));
-    console.log("El tamaño seleccionado es: " + elegir_tamanos);
-    tamanos.indexOf(elegir_tamanos);
+function mostrarTamanos(tamanos){
 
-switch (elegir_tamanos) {
-    
-    case "cuarto":
-    cantidad_gustos = 2;   
-    alert("Usted seleccionó:"+ elegir_tamanos);
-    alert("Podés elegir 2 gustos")
+  const tamanosFieldset = document.getElementById("tamanos-fieldset");
 
-    elegirSabores(cantidad_gustos);
-    calcularPrecio(elegir_tamanos);
+    tamanos.forEach((tamano) => { 
+        const label = document.createElement("label");
 
-    break;
-
-    case "medio kilo":
-        cantidad_gustos = 3;
-        alert("Usted seleccionó:"+ elegir_tamanos);
-        alert("Podés elegir 3 gustos")
-
-        elegirSabores(cantidad_gustos);
-        calcularPrecio(elegir_tamanos);
-
-        break;
-
-    case "kilo":
-        cantidad_gustos = 4;
-        alert("Usted seleccionó:"+ elegir_tamanos);
-        alert("Podés elegir 4 gustos")
-
-        elegirSabores(cantidad_gustos);
-        calcularPrecio(elegir_tamanos);
-        break;        
+        label.innerHTML = `
+            <input type="radio" name="tamanos" value="${tamanos.id}">
+            <span>${tamano.nombre}</span>
+            <div><button id="${tamano.id}">Seleccionar</button></div>
+        `  
         
-    default:
-        alert("El tamaño seleccionado no es válido. Por favor, recargue la página e intente nuevamente.");
-        break;
-}
-}
-
-function elegirSabores(cantidad_gustos) {
-
-do  {
-    sabor = prompt("Ingrese un sabor de helado: " + gustos.join(", "));
-    if (gustos.includes(sabor)) {
-        pedido.push(sabor);
-        cantidad_gustos--;
-        alert("Has seleccionado: " + sabor + ". Te quedan " + cantidad_gustos + " gustos por elegir.");
-    } else {
-        alert("El sabor ingresado no es válido. Por favor, elige un sabor de la lista.");
-    }
-} while (cantidad_gustos > 0);
-
+        tamanosFieldset.appendChild(label) 
+        const boton = document.getElementById(`${tamano.nombre}${tamano.id}`)
+        boton.addEventListener("click", () => agregarAlPedido(tamanos) )
+    })
 }
 
+mostrarTamanos(tamanos)
 
-function calcularPrecio(elegir_tamanos) {
 
-switch (elegir_tamanos) {
+function agregarAlPedido(tamanos, gustos){
+    //const boton = document.getElementById("boton-seleccionar")
+    
+    
 
-    case "cuarto":
-        precio = 500;
-        alert("El precio de un cuarto de kilo es de $" + precio)
-    break
-
-    case "medio kilo":
-        precio = 900;
-        alert("El precio de medio kilo es de $" + precio)
-    break
-
-    case "kilo":
-        precio = 1700;
-        alert("El precio de un kilo es de $" + precio);
-    break
-
-default:
-    alert("Por favor seleccione el helado nuevamente.");
-    break
+    boton.addEventListener("click", () => {
+        pedidos.push(tamanos, gustos)
+        console.log(pedidos)
+})
 }
-    console.log("Elegiste un helado de:" + elegir_tamanos + " y el precio es de $" + precio);
-    alert("Elegiste un helado de:" + elegir_tamanos + " y el precio es de $" + precio + ".\n Los sabores elegidos son: " + pedido.join(", "));
-} 
