@@ -1,27 +1,28 @@
 
-const tamanos = [
+const tamanosDisponibles = [
     
     {
-        nombre: "un cuarto",
+        nombre: "1/4 cuarto",
         precio: 500,  
     },
     {
-        nombre: "medio kilo",
+        nombre: "1/2 kilo",
         precio: 900,  
     },
     {
-        nombre: "kilo",
+        nombre: "1 kilo",
         precio: 1700,  
     }
 ];
 
-const gustos = ["frutilla", "chocolate", "dulce de leche", "tramontana", "granizado"];
+const gustosDisponibles = ["frutilla", "chocolate", "dulce de leche", "tramontana", "granizado"];
 const pedido = [];
 let cantidad_gustos;
 let precio;
 let elegir_tamanos;
 let sabor;
-
+let tamanoSeleccionado;
+let gustosSeleccionados = [];
 
 //
 //recorrer los arrays con un foreach
@@ -30,35 +31,66 @@ let sabor;
 //segun el input darle la cantidad de gustos
 //crear array de pedido en base a lo que elija el usuario
 
-function mostrarTamanos(tamanos){
 
-  const tamanosFieldset = document.getElementById("tamanos-fieldset");
+//cambiar la funcion para que muestre tambien los gustos
+//agregar el precio
+function mostrarElementos(tamanosDisponibles, gustosDisponibles){
 
-    tamanos.forEach((tamano) => { 
-        const label = document.createElement("label");
+    const divTamanos = document.getElementById("contenedor-tamanos");
+    const divGustos = document.getElementById("contenedor-gustos");
+    
+    tamanosDisponibles.forEach((tamano) => { 
+        const opcionElemento = document.createElement("ul");
 
-        label.innerHTML = `
-            <input type="radio" name="tamanos" value="${tamanos.id}">
-            <span>${tamano.nombre}</span>
-            <div><button id="${tamano.id}">Seleccionar</button></div>
+        opcionElemento.innerHTML = `
+        <li> ${tamano.nombre} - Precio: ${tamano.precio} 
+        <input type="radio" id="${tamano.id}" name="tamano" value="${tamano.nombre}">
+        </li>
         `  
+   
+        divTamanos.appendChild(opcionElemento);
+        const boton = document.getElementById(`contenedor-elementos`)
+        //boton.addEventListener("change", () => agregarAlPedido(tamano))
         
-        tamanosFieldset.appendChild(label) 
-        const boton = document.getElementById(`${tamano.nombre}${tamano.id}`)
-        boton.addEventListener("click", () => agregarAlPedido(tamanos) )
+
     })
+
+    gustosDisponibles.forEach((gustos) => { 
+        const opcionElemento = document.createElement("ul");
+
+        opcionElemento.innerHTML = `
+        <li> ${gustos}
+        <input type="checkbox" id="${gustos}" name="${gustos}" value="${gustos}">
+        </li>
+        `  
+        divGustos.appendChild(opcionElemento);
+        const boton = document.getElementById(`contenedor-gustos`)
+        //boton.addEventListener("change", () => agregarAlPedido(gustos))  
+        
+    })
+
 }
 
-mostrarTamanos(tamanos)
+
+mostrarElementos(tamanosDisponibles, gustosDisponibles);
 
 
-function agregarAlPedido(tamanos, gustos){
-    //const boton = document.getElementById("boton-seleccionar")
-    
-    
-
-    boton.addEventListener("click", () => {
-        pedidos.push(tamanos, gustos)
-        console.log(pedidos)
-})
+function agregarAlPedido(tamano, gustos){
+    const boton = document.getElementById("agregar-al-pedido")
+    if (gustos === null & tamano === null){
+  //      alert("Por favor, seleccione al menos un gusto y tamaño para su helado.")
+    } else {
+    pedidos.push({ tamanos: tamano.nombre, gustos: gustos.nombre});
+   // alert(`Se ha agregado al pedido: ${tamano.nombre} con gustos: ${gustos.nombre}`);
 }
+}
+
+//usarLocalStorage para guardar el pedido
+function confirmarPedido(pedido){
+    const boton_confirmar = document.getElementById("confirmar-pedido")     
+
+}
+
+agregarAlPedido(tamano, gustos);
+//funcion para mostrar el pedido final con tamaños, gustos y precio total
+//funcion para que el usuario ingrese sus datos
