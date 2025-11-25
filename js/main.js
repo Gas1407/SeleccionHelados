@@ -23,7 +23,8 @@ let elegir_tamanos;
 let sabor;
 let tamanoSeleccionado;
 let gustosSeleccionados = [];
-
+let tamano;
+let gustos; 
 //
 //recorrer los arrays con un foreach
 //mostrar por pantalla los gustos y tamaños
@@ -49,9 +50,6 @@ function mostrarElementos(tamanosDisponibles, gustosDisponibles){
         `  
    
         divTamanos.appendChild(opcionElemento);
-        const boton = document.getElementById(`contenedor-elementos`)
-        //boton.addEventListener("change", () => agregarAlPedido(tamano))
-        
 
     })
 
@@ -64,10 +62,9 @@ function mostrarElementos(tamanosDisponibles, gustosDisponibles){
         </li>
         `  
         divGustos.appendChild(opcionElemento);
-        const boton = document.getElementById(`contenedor-gustos`)
-        //boton.addEventListener("change", () => agregarAlPedido(gustos))  
-        
+
     })
+
 
 }
 
@@ -77,12 +74,14 @@ mostrarElementos(tamanosDisponibles, gustosDisponibles);
 
 function agregarAlPedido(tamano, gustos){
     const boton = document.getElementById("agregar-al-pedido")
-    if (gustos === null & tamano === null){
-  //      alert("Por favor, seleccione al menos un gusto y tamaño para su helado.")
+    .addEventListener("change", agregarAlPedido)
+    console.log(gustos, tamano);
+   /* if (gustos === null & tamano === null){
+        alert("Por favor, seleccione al menos un gusto y tamaño para su helado.")
     } else {
     pedidos.push({ tamanos: tamano.nombre, gustos: gustos.nombre});
-   // alert(`Se ha agregado al pedido: ${tamano.nombre} con gustos: ${gustos.nombre}`);
-}
+        alert(`Se ha agregado al pedido: ${tamano.nombre} con gustos: ${gustos.nombre}`);
+}*/
 }
 
 //usarLocalStorage para guardar el pedido
@@ -91,6 +90,20 @@ function confirmarPedido(pedido){
 
 }
 
-agregarAlPedido(tamano, gustos);
+agregarAlPedido();
+
 //funcion para mostrar el pedido final con tamaños, gustos y precio total
 //funcion para que el usuario ingrese sus datos
+
+
+//TAMAÑOS
+        //const boton = document.getElementById(`contenedor-elementos`)
+        //boton.addEventListener("change", () => agregarAlPedido(tamano))
+
+
+//GUSTOS
+        //const boton = document.getElementById(`contenedor-gustos`)
+        //boton.addEventListener("change", () => agregarAlPedido(gustos))  
+        
+
+        
