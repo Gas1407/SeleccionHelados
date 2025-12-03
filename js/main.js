@@ -2,27 +2,30 @@
 const tamanosDisponibles = [
     
     {
+        id: 1,
         nombre: "1/4 cuarto",
         precio: 500,  
     },
     {
+        id: 2,
         nombre: "1/2 kilo",
         precio: 900,  
     },
     {
+        id: 3,
         nombre: "1 kilo",
         precio: 1700,  
     }
 ];
 
 const gustosDisponibles = ["frutilla", "chocolate", "dulce de leche", "tramontana", "granizado"];
-const pedido = [];
+const pedido = []
 let cantidad_gustos;
 let precio;
 let elegir_tamanos;
 let sabor;
-let tamanoSeleccionado;
-let gustosSeleccionados = [];
+var tamanoSeleccionado;
+var gustosSeleccionados = [];
 let tamano;
 let gustos; 
 //
@@ -58,30 +61,41 @@ function mostrarElementos(tamanosDisponibles, gustosDisponibles){
 
         opcionElemento.innerHTML = `
         <li> ${gustos}
-        <input type="checkbox" id="${gustos}" name="${gustos}" value="${gustos}">
+        <input type="checkbox" id="${gustos}" name="gustos" value="${gustos}">
         </li>
         `  
         divGustos.appendChild(opcionElemento);
 
     })
+      
 
-
+    agregarAlPedido();
 }
 
+ 
 
-mostrarElementos(tamanosDisponibles, gustosDisponibles);
+function agregarAlPedido(){
+
+    tamanoSeleccionado = document.querySelector("input[name='tamano']:checked");
+    gustosSeleccionados = document.querySelectorAll("input[type=checkbox][name=gustos]:checked")  
 
 
-function agregarAlPedido(tamano, gustos){
-    const boton = document.getElementById("agregar-al-pedido")
-    .addEventListener("change", agregarAlPedido)
-    console.log(gustos, tamano);
-   /* if (gustos === null & tamano === null){
-        alert("Por favor, seleccione al menos un gusto y tamaño para su helado.")
-    } else {
-    pedidos.push({ tamanos: tamano.nombre, gustos: gustos.nombre});
-        alert(`Se ha agregado al pedido: ${tamano.nombre} con gustos: ${gustos.nombre}`);
-}*/
+
+    pedido = [
+
+        {
+            gustos: gustosSeleccionados.forEach((g) => pedido.push(g.value)),
+            tamano: pedido.push(tamanoSeleccionado.value),
+        }
+    ]
+  
+   
+        
+
+           
+    console.log("Tus gustos son :" + pedido.gustos + "y el tamaño es:" + pedido.tamano);
+
+
 }
 
 //usarLocalStorage para guardar el pedido
@@ -90,20 +104,17 @@ function confirmarPedido(pedido){
 
 }
 
-agregarAlPedido();
+mostrarElementos(tamanosDisponibles, gustosDisponibles);
 
+    let boton = document.getElementById("agregar-al-pedido")
+    .addEventListener("click", agregarAlPedido)
+
+
+
+//EN OTRO JS
 //funcion para mostrar el pedido final con tamaños, gustos y precio total
-//funcion para que el usuario ingrese sus datos
+//funcion para editar el pedido
 
-
-//TAMAÑOS
-        //const boton = document.getElementById(`contenedor-elementos`)
-        //boton.addEventListener("change", () => agregarAlPedido(tamano))
-
-
-//GUSTOS
-        //const boton = document.getElementById(`contenedor-gustos`)
-        //boton.addEventListener("change", () => agregarAlPedido(gustos))  
         
 
         
