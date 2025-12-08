@@ -24,10 +24,13 @@ let cantidad_gustos;
 let precio;
 let elegir_tamanos;
 let sabor;
-var tamanoSeleccionado;
-var gustosSeleccionados = [];
-let tamano;
-let gustos; 
+let tamanoSeleccionado;
+let gustosSeleccionados = [];
+let gustosArray = [];
+let tamanoValue;
+
+
+
 //
 //recorrer los arrays con un foreach
 //mostrar por pantalla los gustos y tamaños
@@ -73,41 +76,47 @@ function mostrarElementos(tamanosDisponibles, gustosDisponibles){
 }
 
  
-
 function agregarAlPedido(){
 
     tamanoSeleccionado = document.querySelector("input[name='tamano']:checked");
     gustosSeleccionados = document.querySelectorAll("input[type=checkbox][name=gustos]:checked")  
-
-
-
-    pedido = [
-
-        {
-            gustos: gustosSeleccionados.forEach((g) => pedido.push(g.value)),
-            tamano: pedido.push(tamanoSeleccionado.value),
-        }
-    ]
-  
    
-        
+     tamanoValue = tamanoSeleccionado ? tamanoSeleccionado.value : null;
+     gustosSeleccionados.forEach(g => {
+        gustosArray.push(g.value);
+    });
 
-           
-    console.log("Tus gustos son :" + pedido.gustos + "y el tamaño es:" + pedido.tamano);
+    if (!tamanoSeleccionado || gustosSeleccionados.length === 0) {
+        console.log("Por favor selecciona un tamaño y al menos un gusto.");
+        return;
+    }
 
+    const pedidoObj = {
+    tamano: tamanoValue,
+     gustos: gustosArray,
+    };
+    
+    pedido.push(pedidoObj);
+
+    console.log("Tus gustos son: " + (pedidoObj.gustos.length ? pedidoObj.gustos.join(", ") : "ninguno") +
+                " y el tamaño es: " + (pedidoObj.tamano ?? "no seleccionado"));
 
 }
+
 
 //usarLocalStorage para guardar el pedido
 function confirmarPedido(pedido){
     const boton_confirmar = document.getElementById("confirmar-pedido")     
-
 }
+
+
 
 mostrarElementos(tamanosDisponibles, gustosDisponibles);
 
     let boton = document.getElementById("agregar-al-pedido")
     .addEventListener("click", agregarAlPedido)
+
+
 
 
 
