@@ -19,7 +19,7 @@ const tamanosDisponibles = [
 ];
 
 const gustosDisponibles = ["frutilla", "chocolate", "dulce de leche", "tramontana", "granizado"];
-const pedido = []
+const pedido = JSON.parse(localStorage.getItem("carrito")) || []
 let cantidad_gustos;
 let precio;
 let elegir_tamanos;
@@ -71,8 +71,6 @@ function mostrarElementos(tamanosDisponibles, gustosDisponibles){
 
     })
       
-
-    agregarAlPedido();
 }
 
  
@@ -93,14 +91,17 @@ function agregarAlPedido(){
 
     const pedidoObj = {
     tamano: tamanoValue,
-     gustos: gustosArray,
+    gustos: gustosArray
     };
     
     pedido.push(pedidoObj);
 
     console.log("Tus gustos son: " + (pedidoObj.gustos.length ? pedidoObj.gustos.join(", ") : "ninguno") +
                 " y el tamaño es: " + (pedidoObj.tamano ?? "no seleccionado"));
+    
+    localStorage.setItem("pedido", JSON.stringify(pedido));            
 
+    
 }
 
 
